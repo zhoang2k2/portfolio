@@ -13,67 +13,67 @@ export default function Home() {
     [key: string]: { image: string; color: string; label: string };
   } = {
     html: {
-      image: "./html.png",
+      image: "/html.png",
       color: "#E34F26",
       label: "HTML",
     },
     css: {
-      image: "./css.png",
+      image: "/css.png",
       color: "#1572B6",
       label: "CSS",
     },
     scss: {
-      image: "./scss.png",
+      image: "/scss.png",
       color: "#CC6699",
       label: "SCSS",
     },
     js: {
-      image: "./js.png",
+      image: "/js.png",
       color: "#F7DF1E",
       label: "JavaScript",
     },
     react: {
-      image: "./react.png",
+      image: "/react.png",
       color: "#61DAFB",
       label: "React",
     },
     next: {
-      image: "./next.png",
+      image: "/next.png",
       color: "#ffffff",
       label: "Next.js",
     },
     ts: {
-      image: "./ts.png",
+      image: "/ts.png",
       color: "#3178C6",
       label: "TypeScript",
     },
     tailwin: {
-      image: "./tailwin.png",
+      image: "/tailwin.png",
       color: "#38B2AC",
       label: "Tailwind",
     },
     antdesign: {
-      image: "./antdesign.png",
+      image: "/antdesign.png",
       color: "#1890FF",
       label: "Ant Design",
     },
     framerMotion: {
-      image: "./framer-motion.png",
+      image: "/framer-motion.png",
       color: "#F70292",
       label: "Framer Motion"
     },
     mongo: {
-      image: "./mongo.png",
+      image: "/mongo.png",
       color: "#47A248",
       label: "MongoDB",
     },
     bootstrap: {
-      image: "./bootstrap.png",
+      image: "/bootstrap.png",
       color: "#563D7C",
       label: "Bootstrap",
     },
     git: {
-      image: "./git.png",
+      image: "/git.png",
       color: "#F05032",
       label: "Git",
     },
@@ -120,7 +120,7 @@ export default function Home() {
                 ? "translate-x-[0%] opacity-1"
                 : "translate-x-[-25%] opacity-0"
             }`}
-            style={{ transitionDelay: "0.75s" }}
+            style={{ transitionDelay: "0.5s" }}
           >
             <div className="text-[24px] font-bold">
               Hello, this is my portfolio!
