@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DK+Uloopet:wght@100..400&display=swap');
+
+:root {
+    --header-height: 50px;
+    --main-bg-color: #000000;
+    --main-title-color: #2A8FD5;
+    --homepage-card-color: #17171C;
+    --fancy-transition: all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.playwrite-dk-uloopet {
+    font-family: "Playwrite DK Uloopet", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#homepage-container>div {
+    background-color: var(--homepage-card-color);
+    padding: 15px;
+    transition: var(--fancy-transition);
+}
+
+.skill-logo div span {
+    transition: var(--fancy-transition);
+}
+
+.skill-logo div img {
+    filter: brightness(75%) opacity(35%) grayscale(100%);
+    transition: var(--fancy-transition);
+    transition-duration: 0.5s;
+}
+
+.skill-logo div:hover img {
+    filter: brightness(100%) opacity(100%) grayscale(0%);
+}
