@@ -13,67 +13,67 @@ export default function Home() {
     [key: string]: { image: string; color: string; label: string };
   } = {
     html: {
-      image: "/html.png",
+      image: "html.png",
       color: "#E34F26",
       label: "HTML",
     },
     css: {
-      image: "/css.png",
+      image: "css.png",
       color: "#1572B6",
       label: "CSS",
     },
     scss: {
-      image: "/scss.png",
+      image: "scss.png",
       color: "#CC6699",
       label: "SCSS",
     },
     js: {
-      image: "/js.png",
+      image: "js.png",
       color: "#F7DF1E",
       label: "JavaScript",
     },
     react: {
-      image: "/react.png",
+      image: "react.png",
       color: "#61DAFB",
       label: "React",
     },
     next: {
-      image: "/next.png",
+      image: "next.png",
       color: "#ffffff",
       label: "Next.js",
     },
     ts: {
-      image: "/ts.png",
+      image: "ts.png",
       color: "#3178C6",
       label: "TypeScript",
     },
     tailwin: {
-      image: "/tailwin.png",
+      image: "tailwin.png",
       color: "#38B2AC",
       label: "Tailwind",
     },
     antdesign: {
-      image: "/antdesign.png",
+      image: "antdesign.png",
       color: "#1890FF",
       label: "Ant Design",
     },
     framerMotion: {
-      image: "/framer-motion.png",
+      image: "framer-motion.png",
       color: "#F70292",
-      label: "Framer Motion"
+      label: "Framer Motion",
     },
     mongo: {
-      image: "/mongo.png",
+      image: "mongo.png",
       color: "#47A248",
       label: "MongoDB",
     },
     bootstrap: {
-      image: "/bootstrap.png",
+      image: "bootstrap.png",
       color: "#563D7C",
       label: "Bootstrap",
     },
     git: {
-      image: "/git.png",
+      image: "git.png",
       color: "#F05032",
       label: "Git",
     },
@@ -97,14 +97,14 @@ export default function Home() {
   // =============================CONTACT=============================
   const contacts = [
     {
-      label: 'Email',
-      color: '#ff4343'
+      label: "Email",
+      color: "#ff4343",
     },
     {
-      label: 'LinkedIn',
-      color: '#0077B5'
-    }
-  ]
+      label: "LinkedIn",
+      color: "#0077B5",
+    },
+  ];
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
@@ -115,154 +115,153 @@ export default function Home() {
         >
           {/* INTRO */}
           <motion.div
-            className={`col-span-8 row-span-3 rounded-xl ${
-              isSectionInView
-                ? "translate-x-[0%] opacity-1"
-                : "translate-x-[-25%] opacity-0"
-            }`}
-            style={{ transitionDelay: "0.5s" }}
+            className="col-span-8 row-span-3"
+            initial={{ opacity: 0, x: "-25%" }}
+            animate={isSectionInView ? { opacity: 1, x: "0%" } : {}}
+            transition={{ delay: 0.5 }}
           >
-            <div className="text-[24px] font-bold">
-              Hello, this is my portfolio!
+            <div className="card-wrapper">
+              <div className="text-[24px] font-bold">
+                Hello, this is my portfolio!
+              </div>
+              <p
+                className="mt-[5px] text-[16px] text-[#A0A2A8]"
+                style={{ lineHeight: "1.65" }}
+              >
+                My name is Nguyen Van Hoang, I have nearly 2 months of freelance
+                experience and 6 months as a Front-end intern at SapotaCorp. I am
+                currently seeking a full-time fresher opportunity in Da Nang or
+                remotely.
+              </p>
             </div>
-
-            <p
-              className="mt-[5px] text-[16px] text-[#A0A2A8]"
-              style={{ lineHeight: "1.65" }}
-            >
-              My name is Nguyen Van Hoang, I have nearly 2 months of freelance
-              experience and 6 months as a Front-end intern at SapotaCorp. I am
-              currently seeking a full-time fresher opportunity in Da Nang or
-              remotely.
-            </p>
           </motion.div>
 
           {/* IMAGE */}
           <motion.div
-            className={`col-span-4 row-span-6 rounded-xl overflow-hidden ${
-              isSectionInView
-                ? "translate-y-0 opacity-1"
-                : "translate-y-[-25%] opacity-0"
-            }`}
-            style={{
-              padding: 0,
-            }}
+            className="col-span-4 row-span-6"
+            initial={{ opacity: 0, y: "-25%" }}
+            animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
           >
-            <Image
-              src="/avatar.jpg"
-              alt="avatar"
-              fill
-              className="!relative translate-y-[-60px] object-contain"
-              style={{ scale: 1.6 }}
-            />
+            <div className="card-wrapper overflow-hidden">
+              <Image
+                src="/avatar.jpg"
+                alt="avatar"
+                fill
+                className="!relative translate-y-[-60px] object-contain"
+                style={{ scale: 2.2 }}
+              />
+            </div>
           </motion.div>
 
           {/* POSITION */}
           <motion.div
-            className={`col-span-4 row-span-3 rounded-xl flex flex-col justify-center ${
-              isSectionInView
-                ? "translate-y-0 opacity-1"
-                : "translate-y-[50%] opacity-0"
-            }`}
-            style={{ transitionDelay: "2s" }}
+            className="col-span-4 row-span-3"
+            initial={{ opacity: 0, y: "50%" }}
+            animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
+            transition={{ delay: 2 }}
           >
-            <span className="text-[28px] text-center playwrite-dk-uloopet">
-              Front-end Dev
-              <br /> Intern/Fresher
-            </span>
+            <div className="card-wrapper h-full flex flex-col justify-center">
+              <span className="text-[28px] text-center playwrite-dk-uloopet">
+                Front-end Dev
+                <br /> Intern/Fresher
+              </span>
+            </div>
           </motion.div>
 
           {/* CENTER */}
-          <motion.div className="col-span-4 row-span-5 rounded-xl">
-            1
+          <motion.div className="col-span-4 row-span-5">
+            <div className="card-wrapper">
+              1
+            </div>
           </motion.div>
 
           {/* SKILLS */}
           <motion.div
-            className={`col-span-4 row-span-6 rounded-xl ${
-              isSectionInView
-                ? "translate-y-[0%] opacity-1"
-                : "translate-y-[25%] opacity-0"
-            }`}
-            style={{ transitionDelay: "1s" }}
+            className="col-span-4 row-span-6"
+            initial={{ opacity: 0, y: "25%" }}
+            animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
+            transition={{ delay: 1 }}
           >
-            <div className="text-[24px] font-bold">I have worked with</div>
+            <div className="card-wrapper">
+              <div className="text-[24px] font-bold">I have worked with</div>
+              <div
+                className="mt-[10px] skill-logo grid grid-cols-4 gap-[20px] relative"
+                // style={{ columnGap: "10px", rowGap: "25px" }}
+              >
+                {skills.map((skill: string, index) => {
+                  const skillData =
+                    skillsDetail[String(skill) as keyof typeof skillsDetail];
 
-            <div
-              className="mt-[10px] skill-logo grid grid-cols-4 relative"
-              style={{ columnGap: "10px", rowGap: "25px" }}
-            >
-              {skills.map((skill: string, index) => {
-                const skillData =
-                  skillsDetail[String(skill) as keyof typeof skillsDetail];
-
-                return (
-                  <div className="group" key={index}>
-                    <span
-                      style={{ backgroundColor: skillData.color }}
-                      className="rounded-full w-[40%] h-[40%] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] blur-[100px] opacity-0 group-hover:opacity-100 z-[-1]"
-                    ></span>
-
-                    <div className="w-full h-full flex relative">
-                      <Image
-                        src={`/${skillData.image}`}
-                        alt="skill logo"
-                        className="m-auto"
-                        width={40}
-                        height={40}
-                      />
-
+                  return (
+                    <div className="group" key={index}>
                       <span
-                        className="flex flex-nowrap justify-center top-[25%] text-[14px] font-semibold w-full text-nowrap absolute cursor-default opacity-0 group-hover:opacity-100 group-hover:top-[100%]"
-                        style={{ color: skillData.color }}
-                      >
-                        {skillData.label}
-                      </span>
+                        style={{ backgroundColor: skillData.color, pointerEvents: 'none' }}
+                        className="rounded-full w-[40%] h-[40%] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] blur-[100px] opacity-0 group-hover:opacity-100 z-[1]"
+                      ></span>
+
+                      <div className="w-full h-full flex relative z-10 py-[8px] rounded-[7.5px] bg-black bg-opacity-40">
+                        <Image
+                          src={`/${skillData.image}`}
+                          alt="skill logo"
+                          className="m-auto"
+                          width={35}
+                          height={35}
+                        />
+
+                        <span
+                          className="flex flex-nowrap justify-center top-[25%] text-[12px] font-semibold w-full text-nowrap absolute cursor-default opacity-0 group-hover:opacity-100 group-hover:top-[100%]"
+                          style={{ color: skillData.color }}
+                        >
+                          {skillData.label}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
 
           {/* MEDIA */}
           <motion.div
-            className={`col-span-4 row-span-2 rounded-xl ${
-              isSectionInView
-                ? "translate-y-[0%] opacity-1"
-                : "translate-y-[-50%] opacity-0"
-            }`}
-            style={{ transitionDelay: "2s" }}
+            className="col-span-4 row-span-2"
+            initial={{ opacity: 0, y: "-50%" }}
+            animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
+            transition={{ delay: 2 }}
           >
-            <div className="text-[24px] font-bold">Contact me via</div>
-            <div className="flex gap-[20px]">
-              {contacts.map((contact, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="flex justify-center align-middle px-[15px] py-[2.5px] border-2 rounded-full overflow-hidden relative group"
-                  >
+            <div className="card-wrapper">
+              <div className="text-[24px] font-bold">Contact me via</div>
+              <div className="flex gap-[20px]">
+                {contacts.map((contact, index) => {
+                  return (
                     <div
-                      className="w-[1px] h-[1px] border-[4px] rounded-full m-auto absolute left-[12.5px] top-[50%] translate-y-[-50%] group-hover:w-[500px] group-hover:h-[500px] group-hover:left-[-5px]"
-                      style={{ borderColor: contact.color, transition: 'var(--fancy-transition)' }}
-                    ></div>
-                    <span className="ml-[15px]">{contact.label}</span>
-                  </div>
-                );
-              })}
+                      key={index}
+                      className="flex justify-center align-middle px-[15px] py-[2.5px] border-2 rounded-full overflow-hidden relative group"
+                    >
+                      <div
+                        className="w-[1px] h-[1px] border-[4px] rounded-full m-auto absolute left-[12.5px] top-[50%] translate-y-[-50%] group-hover:w-[500px] group-hover:h-[500px] group-hover:left-[-5px]"
+                        style={{
+                          borderColor: contact.color,
+                          transition: "var(--fancy-transition)",
+                        }}
+                        
+                      ></div>
+                      <span className="ml-[15px]">{contact.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
 
           {/* EXPERIENCE */}
           <motion.div
-            className={`col-span-8 row-span-4 rounded-xl ${
-              isSectionInView
-                ? "translate-x-[0%] opacity-1"
-                : "translate-x-[25%] opacity-0"
-            }`}
-            style={{ transitionDelay: "1.5s" }}
+            className="col-span-8 row-span-4"
+            initial={{ opacity: 0, x: "25%" }}
+            animate={isSectionInView ? { opacity: 1, x: "0%" } : {}}
+            transition={{ delay: 1.5 }}
           >
-            4
+            <div className="card-wrapper">4</div>
           </motion.div>
         </div>
       </main>

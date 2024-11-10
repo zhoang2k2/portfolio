@@ -26,9 +26,62 @@ body {
 }
 
 #homepage-container>div {
-    background-color: var(--homepage-card-color);
-    padding: 15px;
     transition: var(--fancy-transition);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-wrapper {
+    background-color: var(--homepage-card-color);
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: -45deg;
+    inherits: false;
+}
+
+#homepage-container>div:hover::after,
+#homepage-container>div:hover::before {
+    opacity: 1;
+    animation: spin 5s linear infinite; 
+}
+
+#homepage-container>div::after,
+#homepage-container>div::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    translate: -50% -50%;
+    top: 50%;
+    left: 50%;
+    background-image: conic-gradient(from var(--angle), transparent 90%, #00FFFF);
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: -1;
+    animation: none ;
+    opacity: 0;
+}
+
+#homepage-container>div::before {
+    filter: blur(10px);
+}
+
+@keyframes spin {
+    from {
+        --angle: -45deg
+    }
+    to {
+        --angle: 315deg
+    }
 }
 
 .skill-logo div span {
