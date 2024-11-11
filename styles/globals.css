@@ -9,7 +9,9 @@
     --main-bg-color: #000000;
     --main-title-color: #2A8FD5;
     --homepage-card-color: #17171C;
+    --hover-homepage-card-color: #17171cf3;
     --fancy-transition: all 0.5s cubic-bezier(0.17, 0.55, 0.55, 1);
+    --card-radius: 20px;
 }
 
 body {
@@ -25,12 +27,44 @@ body {
     font-style: normal;
 }
 
-#homepage-container>div {
+.card {
     transition: var(--fancy-transition);
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--card-radius) - 4px);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+.card:hover .card-wrapper {
+    background-color: var(--hover-homepage-card-color);
+}
+
+.card::before {
+    content: "";
+    width: 150px;
+    height: 150px;
+    filter: blur(50px);
+    border-radius: 100%;
+    background-color: white;
+    position: absolute;
+    top: calc(var(--mouse-y) - 75px);
+    left: calc(var(--mouse-x) - 75px);
+    opacity: 0;
+}
+
+.card-border {
+    width: 100%;
+    height: 100%;
+    background-color: #8B8B8B;
+    position: absolute;
+    z-index: 1;
+    border-radius: calc(var(--card-radius) - 4px);
+    opacity: .25;
 }
 
 .card-wrapper {
@@ -39,49 +73,7 @@ body {
     height: calc(100% - 5px);
     padding: 15px;
     border-radius: 15px;
-}
-
-@property --angle {
-    syntax: "<angle>";
-    initial-value: -45deg;
-    inherits: false;
-}
-
-#homepage-container>div:hover::after,
-#homepage-container>div:hover::before {
-    opacity: 1;
-    animation: spin 5s linear infinite; 
-}
-
-#homepage-container>div::after,
-#homepage-container>div::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    translate: -50% -50%;
-    top: 50%;
-    left: 50%;
-    background-image: conic-gradient(from var(--angle), transparent 90%, #00FFFF);
-    border-radius: 15px;
-    pointer-events: none;
-    z-index: -1;
-    animation: none ;
-    opacity: 0;
-}
-
-#homepage-container>div::before {
-    filter: blur(10px);
-}
-
-@keyframes spin {
-    from {
-        --angle: -45deg
-    }
-    to {
-        --angle: 315deg
-    }
+    z-index: 2;
 }
 
 .skill-logo div span {
@@ -96,4 +88,67 @@ body {
 
 .skill-logo div:hover img {
     filter: brightness(100%) opacity(100%) grayscale(0%);
+}
+
+/* ============================SPIN ANIMATION============================ */
+@property --angle {
+    syntax: "<angle>";
+    initial-value: -45deg;
+    inherits: false;
+}
+
+.spin-animate-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.spin-animate-container:hover .spin-animate-box::after,
+.spin-animate-container:hover .spin-animate-box::before {
+    opacity: 0;
+}
+
+.spin-animate-box::after,
+.spin-animate-box::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    translate: -50% -50%;
+    top: 50%;
+    left: 50%;
+    border-radius: var(--card-radius);
+    /* background-image: conic-gradient(from var(--angle), transparent 90%, #00FFFF); */
+    pointer-events: none;
+    animation: spin 2s linear infinite; 
+}
+
+/* .spin-animate-box::before  {
+    filter: blur(10px);
+} */
+
+.spin-animate-box {
+    width: 99%;
+    height: 99%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spin-animate-content {
+    background-color: var(--homepage-card-color);
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    z-index: 100;
+    border-radius: var(--card-radius);
+}
+
+@keyframes spin {
+    from {
+        --angle: -45deg
+    }
+    to {
+        --angle: 315deg
+    }
 }

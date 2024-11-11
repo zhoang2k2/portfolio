@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useInView, motion } from "framer-motion";
 import Image from "next/image";
+import styled from "styled-components";
 
 export default function Home() {
   const ref = useRef(null);
@@ -98,13 +99,43 @@ export default function Home() {
   const contacts = [
     {
       label: "Email",
-      color: "#ff4343",
+      color: "#ff3b3b",
     },
     {
       label: "LinkedIn",
-      color: "#0077B5",
+      color: "#00cfff",
     },
   ];
+
+  const StyledDiv = styled.div`
+    &::after,
+    &::before {
+      background-image: ${({ color }) =>
+        `conic-gradient(from var(--angle), transparent 50%, ${color})`};
+    }
+    &::before {
+      filter: blur(10px);
+    }
+  `;
+
+  // ================================MOUSE================================
+  useEffect(() => {
+    const handleOnMouseMove = (e: MouseEvent) => {
+      const target = e.currentTarget as HTMLElement;
+      const rect = target.getBoundingClientRect(),
+        x = e.clientX - rect.left,
+        y = e.clientY - rect.top;
+  
+      target.style.setProperty("--mouse-x", `${x}px`);
+      target.style.setProperty("--mouse-y", `${y}px`);
+    };
+  
+    for (const card of document.querySelectorAll(
+      ".card"
+    ) as NodeListOf<HTMLElement>) {
+      card.onmousemove = (e) => handleOnMouseMove(e);
+    }
+  }, [])
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
@@ -115,33 +146,35 @@ export default function Home() {
         >
           {/* INTRO */}
           <motion.div
-            className="col-span-8 row-span-3"
+            className="card col-span-8 row-span-3"
             initial={{ opacity: 0, x: "-25%" }}
             animate={isSectionInView ? { opacity: 1, x: "0%" } : {}}
             transition={{ delay: 0.5 }}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[24px] font-bold">
+              <div className="text-[22px] mb-[5px] font-bold">
                 Hello, this is my portfolio!
               </div>
               <p
-                className="mt-[5px] text-[16px] text-[#A0A2A8]"
-                style={{ lineHeight: "1.65" }}
+                className="text-[16px] text-[#A0A2A8]"
+                style={{ lineHeight: "1.5" }}
               >
                 My name is Nguyen Van Hoang, I have nearly 2 months of freelance
-                experience and 6 months as a Front-end intern at SapotaCorp. I am
-                currently seeking a full-time fresher opportunity in Da Nang or
-                remotely.
+                experience and 6 months as a Front-end intern at SapotaCorp. I
+                am currently seeking a full-time fresher opportunity in Da Nang
+                or remotely.
               </p>
             </div>
           </motion.div>
 
           {/* IMAGE */}
           <motion.div
-            className="col-span-4 row-span-6"
+            className="card col-span-4 row-span-6"
             initial={{ opacity: 0, y: "-25%" }}
             animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper overflow-hidden">
               <Image
                 src="/avatar.jpg"
@@ -155,11 +188,12 @@ export default function Home() {
 
           {/* POSITION */}
           <motion.div
-            className="col-span-4 row-span-3"
+            className="card col-span-4 row-span-3"
             initial={{ opacity: 0, y: "50%" }}
             animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
             transition={{ delay: 2 }}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper h-full flex flex-col justify-center">
               <span className="text-[28px] text-center playwrite-dk-uloopet">
                 Front-end Dev
@@ -169,23 +203,25 @@ export default function Home() {
           </motion.div>
 
           {/* CENTER */}
-          <motion.div className="col-span-4 row-span-5">
-            <div className="card-wrapper">
-              1
-            </div>
+          <motion.div className="card col-span-4 row-span-5">
+            <div className="card-border"></div>
+            <div className="card-wrapper">1</div>
           </motion.div>
 
           {/* SKILLS */}
           <motion.div
-            className="col-span-4 row-span-6"
+            className="card col-span-4 row-span-6"
             initial={{ opacity: 0, y: "25%" }}
             animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
             transition={{ delay: 1 }}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[24px] font-bold">I have worked with</div>
+              <div className="text-[22px] mb-[5px] font-bold">
+                I have worked with
+              </div>
               <div
-                className="mt-[10px] skill-logo grid grid-cols-4 gap-[20px] relative"
+                className="skill-logo grid grid-cols-4 gap-[20px] relative"
                 // style={{ columnGap: "10px", rowGap: "25px" }}
               >
                 {skills.map((skill: string, index) => {
@@ -195,7 +231,10 @@ export default function Home() {
                   return (
                     <div className="group" key={index}>
                       <span
-                        style={{ backgroundColor: skillData.color, pointerEvents: 'none' }}
+                        style={{
+                          backgroundColor: skillData.color,
+                          pointerEvents: "none",
+                        }}
                         className="rounded-full w-[40%] h-[40%] absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] blur-[100px] opacity-0 group-hover:opacity-100 z-[1]"
                       ></span>
 
@@ -224,29 +263,36 @@ export default function Home() {
 
           {/* MEDIA */}
           <motion.div
-            className="col-span-4 row-span-2"
+            className="card col-span-4 row-span-2"
             initial={{ opacity: 0, y: "-50%" }}
             animate={isSectionInView ? { opacity: 1, y: "0%" } : {}}
             transition={{ delay: 2 }}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[24px] font-bold">Contact me via</div>
+              <div className="text-[22px] mb-[5px] font-bold">
+                Contact me via
+              </div>
               <div className="flex gap-[20px]">
                 {contacts.map((contact, index) => {
                   return (
                     <div
+                      className="spin-animate-container w-[30%] h-[30px] hover:"
                       key={index}
-                      className="flex justify-center align-middle px-[15px] py-[2.5px] border-2 rounded-full overflow-hidden relative group"
                     >
-                      <div
-                        className="w-[1px] h-[1px] border-[4px] rounded-full m-auto absolute left-[12.5px] top-[50%] translate-y-[-50%] group-hover:w-[500px] group-hover:h-[500px] group-hover:left-[-5px]"
-                        style={{
-                          borderColor: contact.color,
-                          transition: "var(--fancy-transition)",
-                        }}
-                        
-                      ></div>
-                      <span className="ml-[15px]">{contact.label}</span>
+                      <StyledDiv
+                        className="spin-animate-box"
+                        color={contact.color}
+                      >
+                        <div
+                          className="spin-animate-content"
+                          style={{ borderRadius: "var(--card-radius)" }}
+                        >
+                          <div className="h-full py-[2px] rounded-[20px] text-[#A0A2A8] text-[12px] text-center bg-black bg-opacity-40">
+                            {contact.label}
+                          </div>
+                        </div>
+                      </StyledDiv>
                     </div>
                   );
                 })}
@@ -256,11 +302,12 @@ export default function Home() {
 
           {/* EXPERIENCE */}
           <motion.div
-            className="col-span-8 row-span-4"
+            className="card col-span-8 row-span-4"
             initial={{ opacity: 0, x: "25%" }}
             animate={isSectionInView ? { opacity: 1, x: "0%" } : {}}
             transition={{ delay: 1.5 }}
           >
+            <div className="card-border"></div>
             <div className="card-wrapper">4</div>
           </motion.div>
         </div>
