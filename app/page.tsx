@@ -1,13 +1,64 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
 import Image from "next/image";
 import styled from "styled-components";
+import useGitHubProfile from "@/hooks/useGitHubProfile";
+import Link from "next/link";
+
+const StyledDiv = styled.div`
+  &::after,
+  &::before {
+    background-image: ${({ color }) =>
+      `conic-gradient(from var(--angle), transparent 50%, ${color})`};
+  }
+  &::before {
+    filter: blur(10px);
+  }
+`;
 
 export default function Home() {
   const ref = useRef(null);
   const isSectionInView = useInView(ref, { once: true });
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [isTextVisible, setIsTextVisible] = useState(false);
+  const [githubProfile, setGithubProfile] = useState<{
+    [key: string]: string;
+  }>();
+  const [customProfile, setCustomProfile] = useState<{
+    login: string | string[];
+  }>();
+
+  // =============================INTRO=============================
+  const introInfo = [
+    {
+      description: "My name is Nguyen Van Hoang.",
+      question: "About me?",
+      extra: "",
+    },
+    {
+      description:
+        "Seeking for a full-time Fresher position in Da Nang or remote.",
+      question: "Desire?",
+      extra: "",
+    },
+    {
+      description: "I am ready to start as early as next week.",
+      question: "Availability?",
+      extra: "",
+    },
+  ];
+
+  // =============================POSITION=============================
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTextVisible(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // =============================SKILLS=============================
   const skillsDetail: {
@@ -100,23 +151,66 @@ export default function Home() {
     {
       label: "Email",
       color: "#ff3b3b",
+      detail: "nvhoang2012002@gmail.com",
     },
     {
       label: "LinkedIn",
       color: "#00cfff",
+      detail: "https://www.linkedin.com/in/hoangnv02",
     },
   ];
 
-  const StyledDiv = styled.div`
-    &::after,
-    &::before {
-      background-image: ${({ color }) =>
-        `conic-gradient(from var(--angle), transparent 50%, ${color})`};
+  const handleNavigate = (type: "email" | "linkedin", content: string) => {
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${content}`;
+        window.open(type === "email" ? gmailUrl : content, "_blank");
+      })
+      .catch((err) => {
+        console.error("Failed to copy: ", err);
+      });
+  };
+
+  // =============================GITHUB=============================
+  const profile: any = useGitHubProfile("zhoang2k2");
+
+  useEffect(() => {
+    profile && setGithubProfile(profile.profile);
+  }, [profile]);
+
+  useEffect(() => {
+    if (
+      githubProfile &&
+      Array(customProfile?.login)?.join("") !== githubProfile.login
+    ) {
+      setCustomProfile({ login: ["@", ...githubProfile.login.split("")] });
     }
-    &::before {
-      filter: blur(10px);
-    }
-  `;
+  }, [githubProfile]);
+
+  // =============================DETAIL EXPERIENCE=============================
+  const detailInfo = [
+    {
+      time: "4 months",
+      description: "Worked as a Front-end Intern at SapotaCorp.",
+    },
+    {
+      time: "2 months",
+      description: "Freelanced on UI tasks with a small team in Hanoi.",
+    },
+    {
+      time: "05/2024",
+      description: "Completed a 6-month Front-end course at VTI Academy.",
+    },
+    {
+      time: "05/2024",
+      description: "Graduated from the University of Greenwich.",
+    },
+    {
+      time: "07/2023",
+      description: "Began my self-learning journey in Front-end development.",
+    },
+  ];
 
   // ================================MOUSE================================
   useEffect(() => {
@@ -125,17 +219,17 @@ export default function Home() {
       const rect = target.getBoundingClientRect(),
         x = e.clientX - rect.left,
         y = e.clientY - rect.top;
-  
+
       target.style.setProperty("--mouse-x", `${x}px`);
       target.style.setProperty("--mouse-y", `${y}px`);
     };
-  
+
     for (const card of document.querySelectorAll(
       ".card"
     ) as NodeListOf<HTMLElement>) {
       card.onmousemove = (e) => handleOnMouseMove(e);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
@@ -153,18 +247,22 @@ export default function Home() {
           >
             <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[22px] mb-[5px] font-bold">
-                Hello, this is my portfolio!
+              <div className="cursor-default text-[22px] mb-[5px] font-bold">
+                Welcome to my Portfolio!
               </div>
-              <p
-                className="text-[16px] text-[#A0A2A8]"
-                style={{ lineHeight: "1.5" }}
-              >
-                My name is Nguyen Van Hoang, I have nearly 2 months of freelance
-                experience and 6 months as a Front-end intern at SapotaCorp. I
-                am currently seeking a full-time fresher opportunity in Da Nang
-                or remotely.
-              </p>
+              <ul className="flex flex-col gap-[2.5px]">
+                {introInfo.map((info, index) => (
+                  <li
+                    key={index}
+                    className="cursor-default text-[#A0A2A8] hover:text-[#fff] flex"
+                  >
+                    <span className="font-bold w-[115px]">
+                      {info.question}{" "}
+                    </span>
+                    {info.description}
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
 
@@ -177,11 +275,11 @@ export default function Home() {
             <div className="card-border"></div>
             <div className="card-wrapper overflow-hidden">
               <Image
-                src="/avatar.jpg"
+                src="/avatar2.jpg"
                 alt="avatar"
                 fill
-                className="!relative translate-y-[-60px] object-contain"
-                style={{ scale: 2.2 }}
+                className="!relative translate-y-[-20px] object-contain"
+                style={{ scale: 1.305 }}
               />
             </div>
           </motion.div>
@@ -195,9 +293,30 @@ export default function Home() {
           >
             <div className="card-border"></div>
             <div className="card-wrapper h-full flex flex-col justify-center">
-              <span className="text-[28px] text-center playwrite-dk-uloopet">
-                Front-end Dev
-                <br /> Intern/Fresher
+              <span
+                className="text-[36px] text-center chango-regular font-bold"
+                style={{ lineHeight: 1.25 }}
+              >
+                {(() => {
+                  const position = "Front-end Developer";
+                  const array = position.split("");
+
+                  return (
+                    <>
+                      {array.map((letter, index) => (
+                        <motion.span
+                          key={index}
+                          initial={{ opacity: 0 }}
+                          animate={isTextVisible ? { opacity: 1 } : {}}
+                          transition={{ duration: 1, delay: index / 20 }}
+                          className="text-[32px] uppercase"
+                        >
+                          {letter}
+                        </motion.span>
+                      ))}
+                    </>
+                  );
+                })()}
               </span>
             </div>
           </motion.div>
@@ -205,7 +324,40 @@ export default function Home() {
           {/* CENTER */}
           <motion.div className="card col-span-4 row-span-5">
             <div className="card-border"></div>
-            <div className="card-wrapper">1</div>
+            <div className="card-wrapper">
+              <Link
+                className="w-full h-full flex flex-col justify-center items-center gap-[20px]"
+                href={githubProfile?.html_url || ""}
+                target="_blank"
+              >
+                <Image
+                  loading="lazy"
+                  className="rounded-full"
+                  src={githubProfile?.avatar_url || ""}
+                  alt={`Avatar of ${githubProfile?.login}`}
+                  width={125}
+                  height={125}
+                />
+                <div className="flex gap-[2px]">
+                  {Array.isArray(customProfile?.login) &&
+                    customProfile?.login.map(
+                      (letter: string, index: number) => {
+                        return (
+                          <motion.span
+                            key={index}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: index / 10 }}
+                            className="text-[16px]"
+                          >
+                            {letter}
+                          </motion.span>
+                        );
+                      }
+                    )}
+                </div>
+              </Link>
+            </div>
           </motion.div>
 
           {/* SKILLS */}
@@ -217,7 +369,7 @@ export default function Home() {
           >
             <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[22px] mb-[5px] font-bold">
+              <div className="cursor-default text-[22px] mb-[5px] font-bold">
                 I have worked with
               </div>
               <div
@@ -240,6 +392,7 @@ export default function Home() {
 
                       <div className="w-full h-full flex relative z-10 py-[8px] rounded-[7.5px] bg-black bg-opacity-40">
                         <Image
+                          loading="lazy"
                           src={`/${skillData.image}`}
                           alt="skill logo"
                           className="m-auto"
@@ -270,30 +423,48 @@ export default function Home() {
           >
             <div className="card-border"></div>
             <div className="card-wrapper">
-              <div className="text-[22px] mb-[5px] font-bold">
+              <div className="cursor-default text-[22px] mb-[5px] font-bold">
                 Contact me via
               </div>
-              <div className="flex gap-[20px]">
+              <div className="flex gap-[15px]">
                 {contacts.map((contact, index) => {
+                  const type = contact.label.toLowerCase() as
+                    | "email"
+                    | "linkedin";
+
                   return (
-                    <div
+                    <motion.div
                       className="spin-animate-container w-[30%] h-[30px] hover:"
                       key={index}
+                      onMouseEnter={() => setHoverIndex(index)}
+                      onMouseLeave={() => setHoverIndex(null)}
+                      animate={
+                        hoverIndex === index
+                          ? { width: "100%", opacity: 1 }
+                          : hoverIndex === null
+                          ? { width: "30%", opacity: 1 }
+                          : { width: 0, opacity: 0, display: "none" }
+                      }
+                      initial={{ width: "auto", opacity: 1 }}
+                      onClick={() => handleNavigate(type, contact.detail)}
                     >
                       <StyledDiv
                         className="spin-animate-box"
                         color={contact.color}
                       >
-                        <div
+                        <motion.div
                           className="spin-animate-content"
                           style={{ borderRadius: "var(--card-radius)" }}
+                          whileTap={{ scale: 0.95 }}
                         >
-                          <div className="h-full py-[2px] rounded-[20px] text-[#A0A2A8] text-[12px] text-center bg-black bg-opacity-40">
-                            {contact.label}
+                          <div className="h-full py-[2px] rounded-[20px] text-[#A0A2A8] text-[14px] text-center bg-black bg-opacity-40 cursor-pointer">
+                            {hoverIndex === null
+                              ? contact.label
+                              : contact.detail}
                           </div>
-                        </div>
+                        </motion.div>
                       </StyledDiv>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -308,7 +479,23 @@ export default function Home() {
             transition={{ delay: 1.5 }}
           >
             <div className="card-border"></div>
-            <div className="card-wrapper">4</div>
+            <div className="card-wrapper">
+              <div className="cursor-default text-[22px] mb-[5px] font-bold">
+                My Career Path
+              </div>
+
+              <ul className="flex flex-col gap-[2.5px]">
+                {detailInfo.map((info, index) => (
+                  <li
+                    key={index}
+                    className="cursor-default text-[#A0A2A8] hover:text-[#fff] flex"
+                  >
+                    <span className="font-bold w-[85px]">{info.time}: </span>
+                    {info.description}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         </div>
       </main>

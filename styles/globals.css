@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+DK+Uloopet:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&display=swap');
 
 :root {
     --header-height: 50px;
@@ -19,14 +19,13 @@ body {
     color: #fff;
     transition: all 0.2s ease-in-out;
 }
-
-.playwrite-dk-uloopet {
-    font-family: "Playwrite DK Uloopet", cursive;
-    font-optical-sizing: auto;
+.chango-regular {
+    font-family: "Chango", sans-serif;
     font-weight: 400;
     font-style: normal;
-}
-
+  }
+  
+  
 .card {
     transition: var(--fancy-transition);
     display: flex;
@@ -104,11 +103,6 @@ body {
     position: relative;
 }
 
-.spin-animate-container:hover .spin-animate-box::after,
-.spin-animate-container:hover .spin-animate-box::before {
-    opacity: 0;
-}
-
 .spin-animate-box::after,
 .spin-animate-box::before {
     content: "";
@@ -121,7 +115,7 @@ body {
     border-radius: var(--card-radius);
     /* background-image: conic-gradient(from var(--angle), transparent 90%, #00FFFF); */
     pointer-events: none;
-    animation: spin 2s linear infinite; 
+    animation: spin 2s linear infinite;
 }
 
 /* .spin-animate-box::before  {
